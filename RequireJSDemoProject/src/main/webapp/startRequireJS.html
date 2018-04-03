@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Require JS Tutorial</title>
+  </head>
+  <body>
+  
+  	<!-- 
+  	
+  	Require JS is a javascript file that serves as a module loader.
+  	Normally for writing javascripts in a complex web app we would previously write: 
+  	<script type="text/javascript">A.js</script>
+  	<script type="text/javascript">B.js</script>
+  	<script type="text/javascript">C.js</script>
+  	<script type="text/javascript">D.js</script>
+  	<script type="text/javascript">E.js</script>
+  	
+  	Say in any point in C we realize we need some variables from E(i.e C is dependent on E) This would make it necessary that E should
+  	be loaded before C, or else the function in C would have unhandled exceptions and C wouldn't be executed. Once, we load E in front of
+  	C, we also have to take caution if E was ever dependent on D, then D would also have to be loaded earlier. i.e C -> E -> D 
+  	
+  	Now imagine millions of JS, would it be possible to think every dependency through in the beginning before you start coding?
+  	
+  	Thus we would need a mechanism that would make sure the classes that my JS is dependent on loads just before my JS loads, and I don't have
+  	to necessarily mention the loading order right in the beginning.
+  	
+  	Hence, what Require JS empowers us to do is: 
+  	1. Mention all the JS in one place, don't worry about order of execution or dependency
+  	2. Whenever you execute a JS, name all the dependencies to be loaded before it right in the beginning. Like we do in a java file.
+  	(i.e declare all your js in the beginning in E,B,A,C,D or any order you want
+  	and, Load D  before you execute E,
+  	Load D,E  before you execute C)
+  	 -->
+  	
+  	<!-- 
+  	
+  	Syntax:
+  	First load the require js, the scr of this should be the absolute path from your classpath or pwd
+  	The data-main tag refers to a config file (which is a js file but you can omit the .js, it is understood by the Framework)
+  	This config file would give additional data for the RequireJS to run
+  	
+  	 -->
+   	<script data-main="main" src="js/require.js"></script>
+   	<script>
+   		// require method in the Require JS, takes in two parameters one is the String Array [''] and another is a callback function
+   		// the String array is the list of the JS that should be "Executed"(again you needn't mention the .js)
+   		// The first require statement should mandatorily load the main/ config file
+   		// the callback function is the function that is executed when the list of the js files to be executed are done executing.
+   		require(['main'],function(){
+   			
+   			// Once the main.js is done loading and takes all the paths into consideration this callback method is executed
+   			// Now we are telling the Require JS to "execute" the customScripts/myJQueryFile.js file
+   			require(['customScripts/myJQueryFile']);
+   			
+   		});
+   	</script>
+   
+  </body>
+</html>
